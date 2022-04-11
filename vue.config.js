@@ -1,6 +1,6 @@
 // vue.config.js
 // eslint-disable-next-line import/no-unused-modules
-const appName = 'address_register'
+const appName = 'calculator'
 const path = require('path')
 
 module.exports = {

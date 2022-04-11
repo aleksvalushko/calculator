@@ -1,13 +1,16 @@
 <template>
-$END$
+  <div :class="$style.memoryAndHistoryBlock"></div>
 </template>
 
 <script>
 export default {
-name: "MemoryAndHistory"
+  name: 'MemoryAndHistory'
 }
 </script>
 
-<style scoped>
-
+<style module lang="scss">
+.memoryAndHistoryBlock {
+  width: 29%;
+  border: 1px solid #000000;
+}
 </style>
