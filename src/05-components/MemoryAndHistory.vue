@@ -11,6 +11,6 @@ export default {
 <style module lang="scss">
 .memoryAndHistoryBlock {
   width: 29%;
-  border: 1px solid #000000;
+  border-left: 1px solid #000000;
 }
 </style>

@@ -1,6 +1,16 @@
 <template>
   <div :class="$style.mainFormBlock">
-    <div :class="$style.menu">Menu</div>
+    <div :class="$style.headerBlock">
+      <div :class="$style.menu">Menu</div>
+      <el-tabs
+        v-model="memoryName"
+        :class="$style.memoryTabs"
+        @tab-click="handleClick"
+      >
+        <el-tab-pane label="History" name="history"/>
+        <el-tab-pane label="Memory" name="memory"/>
+      </el-tabs>
+    </div>
     <div :class="$style.mainForm">
       <div :class="$style.resultAndButtonsBlock">
         <Result/>
@@ -18,7 +28,16 @@ import Result from '@/05-components/Result'
 export default {
   name: 'MainForm',
   components: { MemoryAndHistory, Buttons, Result },
-  props: {}
+  data () {
+    return {
+      memoryName: 'history'
+    }
+  },
+  props: {},
+  methods: {
+    handleClick (tab, event) {
+    }
+  }
 }
 </script>
 
@@ -33,8 +52,40 @@ export default {
   flex-direction: column;
   padding: 5px;
 
-  .menu {
+  .headerBlock {
     height: 10%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 17px;
+
+    .menu {
+      width: 70%;
+      display: flex;
+      align-items: center;
+    }
+
+    .memoryTabs {
+      width: 29%;
+      display: flex;
+      align-self: flex-end;
+    }
+
+    :global(.el-tabs__item) {
+      color: #000000;
+      font-size: 17px;
+    }
+
+    :global(.el-tabs__item:hover) {
+      color: #000000;
+    }
+
+    :global(.el-tabs__item.is-active) {
+      color: #000000;
+    }
+
+    :global(.el-tabs__header) {
+      margin: 0;
+    }
   }
 
   .mainForm {
