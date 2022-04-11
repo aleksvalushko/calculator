@@ -37,10 +37,10 @@ export default {
       return style.button
     },
     getButton () {
-      if (this.button.value === 'корень из x') {
+      if (this.button.value === 'Radical') {
         return '&#8730;x'
       }
-      if (this.button.value === 'x*x') {
+      if (this.button.value === 'Square') {
         return 'x&#178;'
       }
       if (this.button.value === 'x') {
@@ -48,6 +48,9 @@ export default {
       }
       if (this.button.value === 'BackSpace') {
         return '&#8678;'
+      }
+      if (this.button.value === 'Divide') {
+        return '&#247;'
       }
       return this.button.value
     }
