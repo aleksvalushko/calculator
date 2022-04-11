@@ -6,11 +6,14 @@
     <el-button
       v-html="getButton()"
       :title="button.title"
+      @click="handleButtonChoose"
     />
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'Button',
   props: {
@@ -23,6 +26,11 @@ export default {
   },
   methods: {
     mouseOver (event) {
+    },
+    handleButtonChoose () {
+      if (this.button.isNumberButton) {
+        this.SET_RESULT(this.button.value)
+      }
     },
     getClass (style) {
       if (this.button.isMemoryButton) {
@@ -43,17 +51,18 @@ export default {
       if (this.button.value === 'Square') {
         return 'x&#178;'
       }
-      if (this.button.value === 'x') {
+      if (this.button.value === 'Multiply') {
         return '&#215;'
       }
-      if (this.button.value === 'BackSpace') {
+      if (this.button.value === 'Backspace') {
         return '&#8678;'
       }
       if (this.button.value === 'Divide') {
         return '&#247;'
       }
       return this.button.value
-    }
+    },
+    ...mapMutations(['SET_RESULT'])
   }
 }
 </script>
