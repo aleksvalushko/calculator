@@ -4,20 +4,23 @@
       <Button
         v-for="(memoryButton, index) in memoryButtons"
         :key="index"
-        :button="memoryButton"/>
+        :button="memoryButton"
+      />
     </div>
     <div :class="$style.buttons">
       <Button
         v-for="(button, index) in buttons"
         :key="index"
-        :button="button"/>
+        :button="button"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Button from '@/05-components/Button'
 import { mapState } from 'vuex'
+
+import Button from '../05-components/Button'
 
 export default {
   name: 'Buttons',

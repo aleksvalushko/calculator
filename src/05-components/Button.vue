@@ -4,15 +4,15 @@
     @mouseover="mouseOver"
   >
     <el-button
-      v-html="getButton()"
       :title="button.title"
       @click="handleButtonChoose"
+      v-html="getButton()"
     />
   </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'Button',
@@ -23,14 +23,74 @@ export default {
     }
   },
   computed: {
+    ...mapState(['firstNumber', 'secondNumber', 'isPlusSignTouched', 'result', 'currentSign', 'resultExpression'])
   },
   methods: {
     mouseOver (event) {
     },
+    // eslint-disable-next-line complexity,max-statements
     handleButtonChoose () {
       if (this.button.isNumberButton) {
-        this.SET_RESULT(this.button.value)
+        if (!this.secondNumber && !this.currentSign) {
+          this.SET_FIRST_NUMBER(this.button.value)
+          this.SET_RESULT(this.firstNumber)
+          this.SET_RESULT_EXPRESSION(this.firstNumber)
+          return
+        }
+        if (this.firstNumber && this.currentSign) {
+          this.SET_SECOND_NUMBER(this.button.value)
+          this.SET_RESULT(this.secondNumber)
+          this.SET_RESULT_EXPRESSION(this.firstNumber + this.currentSign + this.secondNumber)
+          return
+        }
       }
+      if (this.button.isSignButton) {
+        this.SET_CURRENT_SIGN(this.button.value)
+        if (this.button.isPlusSign) {
+          this.SET_IS_PLUS_SIGN_TOUCHED(true)
+          this.pushedPlusSignButton()
+          return
+        }
+      }
+      if (this.button.isEquallyButton) {
+        this.pushedEquallyButton()
+        return
+      }
+      if (this.button.isClearAllSign) {
+        this.pushedClearAllSignButton()
+      }
+    },
+    pushedPlusSignButton () {
+      this.SET_CURRENT_SIGN(this.button.value)
+      if (this.isPlusSignTouched) {
+        this.SET_RESULT(+this.firstNumber + +this.secondNumber)
+        this.SET_FIRST_NUMBER('')
+        this.SET_FIRST_NUMBER(this.result)
+        this.SET_RESULT_EXPRESSION(this.firstNumber + this.currentSign)
+        this.SET_SECOND_NUMBER('')
+        this.SET_IS_PLUS_SIGN_TOUCHED(false)
+      } else {
+        this.SET_IS_PLUS_SIGN_TOUCHED(true)
+        this.SET_FIRST_NUMBER(+this.firstNumber + +this.secondNumber)
+        this.SET_RESULT_EXPRESSION(this.firstNumber + this.currentSign)
+        this.SET_SECOND_NUMBER('')
+      }
+    },
+    pushedEquallyButton () {
+      this.SET_RESULT(+this.firstNumber + +this.secondNumber)
+      this.SET_RESULT_EXPRESSION(this.firstNumber + this.currentSign + this.secondNumber + '=')
+      this.SET_HISTORY(this.resultExpression)
+      this.SET_FIRST_NUMBER('')
+      this.SET_SECOND_NUMBER('')
+      this.SET_IS_PLUS_SIGN_TOUCHED(false)
+      this.SET_CURRENT_SIGN(this.button.value)
+    },
+    pushedClearAllSignButton () {
+      this.SET_RESULT('')
+      this.SET_FIRST_NUMBER('')
+      this.SET_SECOND_NUMBER('')
+      this.SET_IS_PLUS_SIGN_TOUCHED(false)
+      this.SET_RESULT_EXPRESSION('')
     },
     getClass (style) {
       if (this.button.isMemoryButton) {
@@ -62,7 +122,8 @@ export default {
       }
       return this.button.value
     },
-    ...mapMutations(['SET_RESULT'])
+    ...mapMutations(['SET_RESULT', 'SET_FIRST_NUMBER', 'SET_SECOND_NUMBER', 'SET_IS_PLUS_SIGN_TOUCHED', 'SET_RESULT_EXPRESSION',
+      'SET_CURRENT_SIGN', 'SET_HISTORY'])
   }
 }
 </script>
@@ -106,7 +167,7 @@ export default {
 
 .signButton {
   :global(.el-button) {
-    background-color: #e1e1e1;
+    background-color: #e4e7ed;
   }
 }
 
