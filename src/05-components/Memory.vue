@@ -1,15 +1,17 @@
 <template>
-  <div :class="$style.memoryAndHistoryBlock"></div>
+  <div :class="$style.memoryBlock">
+    {{ 'memory' }}
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'MemoryAndHistory'
+  name: 'Memory'
 }
 </script>
 
 <style module lang="scss">
-.memoryAndHistoryBlock {
+.memoryBlock {
   width: 29%;
   border-left: 1px solid #000000;
 }

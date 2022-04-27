@@ -1,6 +1,9 @@
 <template>
   <div :class="$style.resultBlock">
-    {{ result }}
+    <div :class="$style.resultExpression">
+      {{ resultExpression }}
+    </div>
+    <div>{{ result }}</div>
   </div>
 </template>
 
@@ -10,7 +13,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'Result',
   computed: {
-    ...mapState(['result'])
+    ...mapState(['result', 'resultExpression'])
   }
 }
 </script>
@@ -21,8 +24,13 @@ export default {
   height: 19%;
   font-size: 80px;
   display: flex;
-  justify-content: right;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
   color: #000000;
+  .resultExpression {
+    font-size: 25px;
+    color: gray;
+  }
 }
 </style>
