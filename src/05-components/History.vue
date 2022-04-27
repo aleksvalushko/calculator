@@ -1,6 +1,14 @@
 <template>
   <div :class="$style.historyBlock">
-    {{ resultExpression }}
+    <div
+      v-for="result in resultExpressionsForHistory"
+      :key="result.id"
+    >
+      <div>{{ result.expression }}</div>
+      <div style="font-size: 30px;">
+        {{ result.result }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -10,7 +18,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'History',
   computed: {
-    ...mapState(['resultExpression'])
+    ...mapState(['resultExpressionsForHistory'])
   }
 }
 </script>
@@ -18,8 +26,11 @@ export default {
 <style module lang="scss">
 .historyBlock {
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   justify-content: right;
   width: 100%;
   font-size: 20px;
+  margin-top: 10px;
 }
 </style>

@@ -11,6 +11,7 @@ export default new Vuex.Store({
     secondNumber: '',
     isPlusSignTouched: false,
     resultExpression: '',
+    resultExpressionsForHistory: [],
     currentSign: '',
     history: [],
     memoryButtons: [
@@ -73,6 +74,9 @@ export default new Vuex.Store({
     },
     SET_CURRENT_SIGN (state, payload) {
       state.currentSign = payload
+    },
+    SET_RESULT_EXPRESSIONS_FOR_HISTORY (state, payload) {
+      state.resultExpressionsForHistory.unshift(payload)
     },
     SET_HISTORY (state, payload) {
       state.history.push(payload)

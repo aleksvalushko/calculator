@@ -16,6 +16,11 @@ import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'Button',
+  data () {
+    return {
+      id: 0
+    }
+  },
   props: {
     button: {
       type: Object,
@@ -23,7 +28,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['firstNumber', 'secondNumber', 'isPlusSignTouched', 'result', 'currentSign', 'resultExpression'])
+    ...mapState(['firstNumber', 'secondNumber', 'isPlusSignTouched', 'result', 'currentSign', 'resultExpression',
+      'resultExpressionsForHistory'])
   },
   methods: {
     mouseOver (event) {
@@ -79,6 +85,12 @@ export default {
     pushedEquallyButton () {
       this.SET_RESULT(+this.firstNumber + +this.secondNumber)
       this.SET_RESULT_EXPRESSION(this.firstNumber + this.currentSign + this.secondNumber + '=')
+      const localResultExpressionForHistory = {
+        id: this.resultExpressionsForHistory.length > 0 ? this.id + 1 : 0,
+        expression: this.firstNumber + this.currentSign + this.secondNumber + '=',
+        result: this.result
+      }
+      this.SET_RESULT_EXPRESSIONS_FOR_HISTORY(localResultExpressionForHistory)
       this.SET_HISTORY(this.resultExpression)
       this.SET_FIRST_NUMBER('')
       this.SET_SECOND_NUMBER('')
@@ -90,6 +102,7 @@ export default {
       this.SET_FIRST_NUMBER('')
       this.SET_SECOND_NUMBER('')
       this.SET_IS_PLUS_SIGN_TOUCHED(false)
+      this.SET_CURRENT_SIGN('')
       this.SET_RESULT_EXPRESSION('')
     },
     getClass (style) {
@@ -123,7 +136,7 @@ export default {
       return this.button.value
     },
     ...mapMutations(['SET_RESULT', 'SET_FIRST_NUMBER', 'SET_SECOND_NUMBER', 'SET_IS_PLUS_SIGN_TOUCHED', 'SET_RESULT_EXPRESSION',
-      'SET_CURRENT_SIGN', 'SET_HISTORY'])
+      'SET_CURRENT_SIGN', 'SET_HISTORY', 'SET_RESULT_EXPRESSIONS_FOR_HISTORY'])
   }
 }
 </script>
