@@ -11,9 +11,9 @@ export default new Vuex.Store({
     secondNumber: '',
     isPlusSignTouched: false,
     resultExpression: '',
-    resultExpressionsForHistory: [],
     currentSign: '',
     history: [],
+    historyId: 0,
     memoryButtons: [
       { value: 'MC', title: 'Clear all memory', isMemoryButton: true, isClearAllMemoryButton: true },
       { value: 'MR', title: 'Memory recall', isMemoryButton: true, isMemoryRecallButton: true },
@@ -75,11 +75,15 @@ export default new Vuex.Store({
     SET_CURRENT_SIGN (state, payload) {
       state.currentSign = payload
     },
-    SET_RESULT_EXPRESSIONS_FOR_HISTORY (state, payload) {
-      state.resultExpressionsForHistory.unshift(payload)
+    SET_HISTORY_ID (state, payload) {
+      state.historyId = payload
     },
     SET_HISTORY (state, payload) {
-      state.history.push(payload)
+      if (Array.isArray(payload)) {
+        state.history = []
+      } else {
+        state.history.push(payload)
+      }
     }
   },
   actions: {

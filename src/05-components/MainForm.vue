@@ -12,7 +12,7 @@
     <div :class="$style.historyAndMemoryBlock">
       <el-tabs
         v-model="memoryName"
-        :class="$style.memoryTabs"
+        :class="$style.memoryAndHistoryTabs"
         @tab-click="handleClick"
       >
         <el-tab-pane
@@ -28,11 +28,25 @@
           <memory />
         </el-tab-pane>
       </el-tabs>
+      <div :class="$style.historyAndMemoryDeleteButtonBlock">
+        <el-button
+          size="mini"
+          :class="$style.historyAndMemoryDeleteButton"
+          @click="clearHistory"
+        >
+          <i
+            class="el-icon-delete"
+            style="font-size: 25px;"
+          ></i>
+        </el-button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 import Buttons from '../05-components/Buttons'
 import Result from '../05-components/Result'
 import History from './History'
@@ -48,7 +62,11 @@ export default {
   props: {},
   methods: {
     handleClick (tab, event) {
-    }
+    },
+    clearHistory () {
+      this.SET_HISTORY([])
+    },
+    ...mapMutations(['SET_HISTORY'])
   }
 }
 </script>
@@ -68,7 +86,7 @@ export default {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 70%;
+    width: 75%;
 
     .menu {
       width: 100%;
@@ -88,14 +106,41 @@ export default {
   }
 
   .historyAndMemoryBlock {
-    width: 30%;
+    width: 25%;
     height: 100%;
     display: flex;
     flex-direction: column;
 
-    .memoryTabs {
+    .memoryAndHistoryTabs {
+      height: 92%;
       display: flex;
       flex-direction: column;
+    }
+
+    .historyAndMemoryDeleteButtonBlock {
+      width: 100%;
+      height: 8%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: right;
+      margin-top: 5px;
+
+      .historyAndMemoryDeleteButton {
+        background: transparent;
+        padding: 7px;
+      }
+
+      :global(.el-button) {
+        color: #000000;
+        background-color: transparent;
+        border: 1px solid transparent;
+        &:hover {
+          color: #000000;
+          border: 1px solid #808080;
+          background-color: #afafaf;
+          border-radius: 0;
+        }
+      }
     }
 
     :global(.el-tabs__item) {
