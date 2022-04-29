@@ -81,16 +81,18 @@ export default {
       }
     },
     pushedEquallyButton () {
-      this.SET_RESULT(+this.firstNumber + +this.secondNumber)
-      this.SET_RESULT_EXPRESSION(this.firstNumber + this.currentSign + this.secondNumber + '=')
-      this.SET_HISTORY_ID(this.historyId + 1)
-      const localResultExpressionForHistory = {
-        id: this.historyId,
-        expression: this.firstNumber + ' ' + this.currentSign + ' ' + this.secondNumber + ' ' + '=',
-        result: this.result
+      if (this.secondNumber) {
+        this.SET_RESULT(+this.firstNumber + +this.secondNumber)
+        this.SET_RESULT_EXPRESSION(this.firstNumber + this.currentSign + this.secondNumber + '=')
+        this.SET_HISTORY_ID(this.historyId + 1)
+        const localResultExpressionForHistory = {
+          id: this.historyId,
+          expression: this.firstNumber + ' ' + this.currentSign + ' ' + this.secondNumber + ' ' + '=',
+          result: this.result
+        }
+        this.SET_HISTORY(localResultExpressionForHistory)
+        this.SET_CURRENT_SIGN(this.button.value)
       }
-      this.SET_HISTORY(localResultExpressionForHistory)
-      this.SET_CURRENT_SIGN(this.button.value)
     },
     pushedClearAllSignButton () {
       this.SET_RESULT('')

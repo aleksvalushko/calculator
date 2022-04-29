@@ -20,7 +20,6 @@ export default {
 
 <style module lang="scss">
 .resultBlock {
-  border: 1px solid #000000;
   height: 19%;
   font-size: 80px;
   display: flex;
@@ -28,6 +27,7 @@ export default {
   align-items: flex-end;
   justify-content: space-between;
   color: #000000;
+
   .resultExpression {
     font-size: 25px;
     color: gray;
