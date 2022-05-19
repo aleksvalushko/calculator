@@ -10,6 +10,7 @@ export default new Vuex.Store({
     firstNumber: '',
     secondNumber: '',
     isPlusSignTouched: false,
+    isMinusSignTouched: false,
     resultExpression: '',
     currentSign: '',
     history: [],
@@ -68,6 +69,9 @@ export default new Vuex.Store({
     },
     SET_IS_PLUS_SIGN_TOUCHED (state, payload) {
       state.isPlusSignTouched = payload
+    },
+    SET_IS_MINUS_SIGN_TOUCHED (state, payload) {
+      state.isMinusSignTouched = payload
     },
     SET_RESULT_EXPRESSION (state, payload) {
       state.resultExpression = payload

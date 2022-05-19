@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     ...mapState(['firstNumber', 'secondNumber', 'isPlusSignTouched', 'result', 'currentSign', 'resultExpression',
-      'historyId'])
+      'historyId', 'isMinusSignTouched'])
   },
   methods: {
     mouseOver (event) {
@@ -55,6 +55,11 @@ export default {
           this.pushedPlusSignButton()
           return
         }
+        if (this.button.isMinusSign) {
+          this.SET_IS_MINUS_SIGN_TOUCHED(true)
+          this.pushedMinusSignButton()
+          return
+        }
       }
       if (this.button.isEquallyButton) {
         this.pushedEquallyButton()
@@ -80,6 +85,24 @@ export default {
         this.SET_SECOND_NUMBER('')
       }
     },
+    pushedMinusSignButton () {
+      this.SET_CURRENT_SIGN(this.button.value)
+      if (this.isMinusSignTouched) {
+        console.log(this.firstNumber)
+        console.log(this.secondNumber)
+        this.SET_RESULT(+this.firstNumber - +this.secondNumber)
+        this.SET_FIRST_NUMBER('')
+        this.SET_FIRST_NUMBER(this.result)
+        this.SET_RESULT_EXPRESSION(this.firstNumber - this.currentSign)
+        this.SET_SECOND_NUMBER('')
+        this.SET_IS_MINUS_SIGN_TOUCHED(false)
+      } else {
+        this.SET_IS_MINUS_SIGN_TOUCHED(true)
+        this.SET_FIRST_NUMBER(+this.firstNumber - +this.secondNumber)
+        this.SET_RESULT_EXPRESSION(this.firstNumber - this.currentSign)
+        this.SET_SECOND_NUMBER('')
+      }
+    },
     pushedEquallyButton () {
       if (this.secondNumber) {
         this.SET_RESULT(+this.firstNumber + +this.secondNumber)
@@ -99,6 +122,7 @@ export default {
       this.SET_FIRST_NUMBER('')
       this.SET_SECOND_NUMBER('')
       this.SET_IS_PLUS_SIGN_TOUCHED(false)
+      this.SET_IS_MINUS_SIGN_TOUCHED(false)
       this.SET_CURRENT_SIGN('')
       this.SET_RESULT_EXPRESSION('')
     },
@@ -133,7 +157,7 @@ export default {
       return this.button.value
     },
     ...mapMutations(['SET_RESULT', 'SET_FIRST_NUMBER', 'SET_SECOND_NUMBER', 'SET_IS_PLUS_SIGN_TOUCHED', 'SET_RESULT_EXPRESSION',
-      'SET_CURRENT_SIGN', 'SET_HISTORY', 'SET_HISTORY_ID'])
+      'SET_CURRENT_SIGN', 'SET_HISTORY', 'SET_HISTORY_ID', 'SET_IS_MINUS_SIGN_TOUCHED'])
   }
 }
 </script>
